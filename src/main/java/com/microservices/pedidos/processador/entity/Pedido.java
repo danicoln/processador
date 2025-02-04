@@ -25,7 +25,7 @@ public class Pedido {
     private Long id;
     private String cliente;
 
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
 
     @Column(name = "valor_total")
