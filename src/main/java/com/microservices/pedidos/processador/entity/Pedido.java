@@ -37,7 +37,7 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private Status status = Status.EM_PROCESSAMENTO;
 
-    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataHora = LocalDateTime.now();
 
 }
