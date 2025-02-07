@@ -17,7 +17,13 @@ public class ItemPedidoService {
     }
 
     @Transactional
-    public void save(List<ItemPedido> itens) {
-        respository.saveAll(itens);
+    public List<ItemPedido> save(List<ItemPedido> itens) {
+        itens.forEach(this::salvar);
+        return respository.saveAll(itens);
+    }
+
+    @Transactional
+    public void salvar(ItemPedido itemPedido){
+        respository.save(itemPedido);
     }
 }

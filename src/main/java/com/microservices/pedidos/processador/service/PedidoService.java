@@ -25,18 +25,26 @@ public class PedidoService {
     }
 
     @Transactional
-    public void save(Pedido pedido){
-
-        //salva os produtos
-        List<ItemPedido> itensSalvos = produtoService.save(pedido.getItens());
-
-        //salva os itens do pedido
-        itemPedidoService.save(itensSalvos);
+    public Pedido save(Pedido pedido){
+        List<ItemPedido> itens = getItemAndPedidos(pedido);
+        pedido.setItens(itens);
 
         //salva o pedido
-        repository.save(pedido);
-
+        Pedido pedidoSalvo = repository.save(pedido);
         logger.info("Pedido salvo:: {}", pedido);
+
+        return pedidoSalvo;
+
+    }
+
+    private List<ItemPedido> getItemAndPedidos(Pedido pedido) {
+        //salva os produtos
+        List<ItemPedido> itens = produtoService.save(pedido.getItens());
+        for (ItemPedido item : itens) {
+            item.setPedido(pedido);
+        }
+        //salva os itens do pedido
+        return itemPedidoService.save(itens);
     }
 
 }

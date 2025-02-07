@@ -18,9 +18,7 @@ public class ProdutoService {
 
     @Transactional
     public List<ItemPedido> save(List<ItemPedido> itens) {
-        itens.forEach(item -> {
-            repository.save(item.getProduto());
-        });
+        itens.forEach(item -> repository.save(item.getProduto()));
         return itens;
     }
 }
